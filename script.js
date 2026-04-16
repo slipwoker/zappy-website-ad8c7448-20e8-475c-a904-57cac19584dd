@@ -8886,6 +8886,13 @@ window.onload = function() {
       });
     }
 
+    function _updImg(v) {
+      var mi=document.getElementById('product-main-image');if(!mi)return;
+      if(!window._originalMainImageSrc)window._originalMainImageSrc=mi.src;
+      if(v&&v.image){var s=v.image;if(typeof window.resolveProductImageUrl==='function')s=window.resolveProductImageUrl(v.image);mi.src=s}
+      else if(window._originalMainImageSrc){mi.src=window._originalMainImageSrc}
+    }
+
     function _upd() {
       var t=_vT,product=_vProduct;if(!product)return;
       var keys=_gak(),allSel=keys.every(function(k){return selectedAttributes.hasOwnProperty(k)});
@@ -8897,6 +8904,7 @@ window.onload = function() {
           else{if(sd){sd.className='product-stock in-stock';sd.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>'+(t.inStock||'In Stock')}if(ab){ab.disabled=false;ab.style.opacity='';ab.style.cursor=''}}
           var skd=document.getElementById('product-sku-display');if(skd&&v.sku){skd.textContent=(t.sku||'SKU')+': '+v.sku}else if(skd&&product.sku){skd.textContent=(t.sku||'SKU')+': '+product.sku}
           var pd=document.getElementById('product-price-display');if(pd){var c=product.currency||t.currency||String.fromCharCode(8362),bP=window.productBasePrice||parseFloat(product.price)||0,oP=window.productOriginalPrice||parseFloat(product.compare_at_price||product.original_price||0),hS=window.productHasSalePrice,fP=(v.price!=null)?parseFloat(v.price):bP,h=c+fP.toFixed(2);if(v.price!=null){if(oP&&oP>fP)h+=' <span class="original-price">'+c+oP.toFixed(2)+'</span>'}else if(hS&&oP>fP){h+=' <span class="original-price">'+c+oP.toFixed(2)+'</span>'}pd.innerHTML=h}if(typeof updatePricePerUnitDisplay==='function'){var eP=(v.price!=null)?parseFloat(v.price):(window.productBasePrice||parseFloat(product.price)||0);updatePricePerUnitDisplay(eP,product,t)}
+          _updImg(v);
         }
       } else {
         window.selectedVariant=null;
@@ -8905,6 +8913,7 @@ window.onload = function() {
         var skd2=document.getElementById('product-sku-display');if(skd2&&product.sku){skd2.textContent=(t.sku||'SKU')+': '+product.sku}
         var pd=document.getElementById('product-price-display');if(pd){var c=product.currency||t.currency||String.fromCharCode(8362),bP=window.productBasePrice||parseFloat(product.price)||0,oP=window.productOriginalPrice||parseFloat(product.compare_at_price||product.original_price||0),hS=window.productHasSalePrice,hR=window.productHasVariantPriceRange,mP=window.productVariantMinPrice;if(hR&&mP!=null&&isFinite(mP)){var sL=(typeof getEcomText==='function')?getEcomText('startingAt',t.startingAt||'Starting at'):(t.startingAt||'Starting at');pd.textContent=sL+' '+c+mP.toFixed(2)}else if(hS&&oP>bP){pd.innerHTML=c+bP.toFixed(2)+' <span class="original-price">'+c+oP.toFixed(2)+'</span>'}else{pd.textContent=c+bP.toFixed(2)}}
         if(typeof updatePricePerUnitDisplay==='function'){var hR2=window.productHasVariantPriceRange,mP2=window.productVariantMinPrice,bP2=window.productBasePrice||parseFloat(product.price)||0,rP=(hR2&&mP2!=null&&isFinite(mP2))?mP2:bP2;updatePricePerUnitDisplay(rP,product,t)}
+        _updImg(null);
       }
     }
 

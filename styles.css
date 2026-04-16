@@ -12173,6 +12173,31 @@ body.accessibility-widget-visible ._access-menu {
     display: none !important;
   }
 }
+/* mobile-submenu-overflow-fix */
+@media (max-width: 768px) {
+  .navbar .sub-menu.mobile-expanded,
+  .nav-menu .sub-menu.mobile-expanded,
+  #navMenu .sub-menu.mobile-expanded,
+  .zappy-products-dropdown .sub-menu.mobile-expanded,
+  .zappy-products-dropdown > .sub-menu.mobile-expanded,
+  .menu-item-has-children > .sub-menu.mobile-expanded {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+  .menu-item-has-children,
+  .zappy-products-dropdown,
+  .nav-menu > li.menu-item-has-children {
+    flex-shrink: 0 !important;
+  }
+  .sub-menu a,
+  .navbar .sub-menu a,
+  .navbar .sub-menu li a,
+  nav.navbar .sub-menu li a,
+  .zappy-products-dropdown .sub-menu a {
+    white-space: normal !important;
+  }
+}
+
 
 /* zappy-nav-child-indent */
 .zappy-products-dropdown .zappy-nav-child > a,
@@ -12872,3 +12897,6 @@ section[data-hero-type] {
 [data-zappy-bg-type="color"] { background-image: none !important; background-color: var(--zappy-bg-color, transparent) !important; }
 [data-zappy-bg-type="image"] { background-image: linear-gradient(var(--zappy-bg-overlay, rgba(0,0,0,0)), var(--zappy-bg-overlay, rgba(0,0,0,0))), var(--zappy-bg-image, none) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
 [data-zappy-bg-type="video"] { background-image: none !important; }
+
+/* Spec table BiDi fix: isolate cells so mixed LTR/RTL content renders correctly */
+.specs-table th, .specs-table td { unicode-bidi: plaintext !important; }
